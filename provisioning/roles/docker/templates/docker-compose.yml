@@ -7,7 +7,7 @@ services:
     ports:
       - '3306:3306'
     volumes:
-      - mysql-data:/var/lib/mysql
+      - mariadb-data:/var/lib/mariadb
     tty: true
   rabbitmq:
     image: 'bitnami/rabbitmq:latest'
