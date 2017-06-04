@@ -1,0 +1,28 @@
+version: '2'
+services:
+  mariadb:
+    image: 'bitnami/mariadb:latest'
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - '3306:3306'
+    volumes:
+      - mysql-data:/var/lib/mysql
+    tty: true
+  rabbitmq:
+    image: 'bitnami/rabbitmq:latest'
+    ports:
+      - 5672:5672
+  web:
+    image: blankenshipz/elixir-phoenix
+    ports:
+      - "4000:4000"
+    links:
+      - mariadb
+      - rabbitmq
+    volumes:
+      - .:/var/app
+    tty: true
+volumes:
+  mariadb-data:
+    driver: local

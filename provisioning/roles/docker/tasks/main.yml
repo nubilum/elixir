@@ -1,0 +1,15 @@
+---
+- name: Remove lxc-docker.
+  apt: name=lxc-docker state=absent
+
+- name: Install docker-engine.
+  apt: name=docker-engine state=present
+
+- name: Install docker-compose
+  shell: curl -L https://github.com/docker/compose/releases/download/1.13.0/docker-compose-`uname -s`-`uname -m` > /usr/bin/docker-compose
+
+- name: chmod docker-compose
+  shell: chmod +x /usr/bin/docker-compose
+
+- name: Copy docker-compose.yml file.
+  template: src=docker-compose.yml dest=/home/vagrant owner=vagrant group=vagrant mode=777
